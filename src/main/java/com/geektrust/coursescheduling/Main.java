@@ -8,16 +8,16 @@ import com.geektrust.coursescheduling.exceptions.NoSuchCommandException;
 import java.io.*;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         runApplication(args);
     }
 
-    public static void runApplication(String[] args) {
+    public static void runApplication(String[] args) throws IOException {
         ApplicationConfig applicationConfig = new ApplicationConfig();
         CommandInvoker commandInvoker = applicationConfig.getCommandInvoker();
 
         String inputFileName = args[CommonConstants.ZERO];
-        BufferedReader bufferedReader;
+        BufferedReader bufferedReader = null;
 
         try {
             bufferedReader = new BufferedReader(new FileReader(inputFileName));
@@ -28,6 +28,7 @@ public class Main {
                 commandInvoker.executeCommand(tokens[CommonConstants.ZERO], tokens);
                 line = bufferedReader.readLine();
             }
+            bufferedReader.close();
 
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
@@ -35,6 +36,8 @@ public class Main {
             System.out.println(e.getMessage());
         } catch (NoSuchCommandException e) {
             System.out.println(e.getMessage());
+        } finally {
+            bufferedReader.close();
         }
     }
 }

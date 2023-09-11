@@ -8,15 +8,10 @@ import java.util.List;
 import java.util.Map;
 
 public class RegistrationRepository {
-    private static final RegistrationRepository instance = new RegistrationRepository();
     private static Map<String, List<Registration>> registrationMap = new HashMap<>();
     // courseId -- List<Registration>
 
-    private RegistrationRepository() {
-    }
-
-    public static final RegistrationRepository getInstance() {
-        return instance;
+    public RegistrationRepository() {
     }
 
     public List<Registration> findRegistrationsByCourseId(String courseId) {

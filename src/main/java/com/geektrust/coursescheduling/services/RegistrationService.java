@@ -97,15 +97,18 @@ public class RegistrationService {
             throw new CourseNotFoundException();
         }
 
-        if (CourseStatus.COURSE_ALLOTTED.equals(course.getCourseStatus()) || CourseStatus.COURSE_CANCELLED.equals(course.getCourseStatus())) {
-            throw new CourseAlreadyProcessedException();
-        }
+//        if (CourseStatus.COURSE_ALLOTTED.equals(course.getCourseStatus()) || CourseStatus.COURSE_CANCELLED.equals(course.getCourseStatus())) {
+//            return;
+//            throw new CourseAlreadyProcessedException();
+//        }
 
         List<Registration> registrationList = registrationRepository.findRegistrationsByCourseId(courseId);
 
         if (registrationList.size() < course.getMinEmployees() || registrationList.size() > course.getMaxEmployees()) {
             course.setCourseStatus(CourseStatus.COURSE_CANCELLED);
-            System.out.println("COURSE_CANCELLED");
+            for (Registration registration : registrationList) {
+                System.out.println(registration + " COURSE_CANCELED");
+            }
             return;
         }
 

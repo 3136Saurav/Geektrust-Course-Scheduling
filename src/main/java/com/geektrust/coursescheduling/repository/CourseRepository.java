@@ -6,14 +6,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CourseRepository {
-    private static final CourseRepository instance = new CourseRepository();
-    private static Map<String, Course> courseMap = new HashMap<>();
 
-    private CourseRepository() {
-    }
+    private Map<String, Course> courseMap = new HashMap<>();
 
-    public static final CourseRepository getInstance() {
-        return instance;
+    public CourseRepository() {
     }
 
     public void saveCourse(Course course) {
